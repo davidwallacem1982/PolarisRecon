@@ -3,23 +3,27 @@ import time
 import os
 
 def run_reconciliation():
-    print("Iniciando motor de conciliação (Polars)...")
+    print("\n" + "╔" + "═" * 58 + "╗")
+    print("║" + " " * 17 + "POLARIS RECON - ENGINE CORE" + " " * 14 + "║")
+    print("╚" + "═" * 58 + "╝")
+    
     start_time = time.time()
     
     # 1. Carregar dados (SLA Check: I/O Speed)
-    print("Carregando arquivos...")
+    print("[*] Carregando conjuntos de dados massivos...")
     if not os.path.exists("data/external_file.csv") or not os.path.exists("data/internal_base.csv"):
-        print("Erro: Arquivos de dados não encontrados. Rode o gerador de dados primeiro.")
+        print("❌ ERRO: Arquivos de dados não encontrados.")
+        print("💡 Sugestão: Execute 'python generate_data.py' primeiro.")
         return
 
     external_df = pl.read_csv("data/external_file.csv")
     internal_df = pl.read_csv("data/internal_base.csv")
     
     after_load = time.time()
-    print(f"Arquivos carregados em {after_load - start_time:.4f} segundos.")
+    print(f"[*] I/O Concluído em {after_load - start_time:.4f}s")
 
     # 2. Outer Join para identificar orfandade
-    print("Executando Outer Join...")
+    print("[*] Executando Vectorized Outer Join (High Precision)...")
     reconciled = internal_df.join(
         external_df, 
         on="order_id", 
@@ -28,6 +32,8 @@ def run_reconciliation():
     )
     
     # 3. Categorização de Divergências
+    print("[*] Aplicando Máscaras de Divergência e Orfandade...")
+    
     # - Missing in External
     missing_in_ext = reconciled.filter(pl.col("external_id_ext").is_null())
     
@@ -45,6 +51,7 @@ def run_reconciliation():
     )
     
     # 4. Geração de Relatório
+    print("[*] Exportando relatórios detalhados para /reports...")
     if not os.path.exists("reports"):
         os.makedirs("reports")
         
@@ -54,19 +61,17 @@ def run_reconciliation():
     end_time = time.time()
     total_time = end_time - start_time
     
-    # Resumo
-    print("\n" + "="*40)
-    print("RESUMO DA CONCILIAÇÃO")
-    print("="*40)
-    print(f"Total registros processados: {reconciled.height}")
-    print(f"Divergências encontradas: {divergences.height}")
-    print(f"Faltantes no arquivo externo: {missing_in_ext.height}")
-    print(f"Extras no arquivo externo: {missing_in_int.height}")
-    print(f"Tempo total de execução: {total_time:.4f} segundos")
-    print("-" * 40)
-    print(f"SLA Máximo: 1.200 segundos (20 min)")
-    print(f"SLA Atingido: {total_time:.4f} segundos ({(total_time/1200)*100:.2f}%)")
-    print("="*40)
+    # Resumo Premium
+    print("\n" + "    " + "📊 RESULTADOS DA CONCILIAÇÃO")
+    print("    " + "─" * 40)
+    print(f"    Total Processado:   {reconciled.height:,} registros")
+    print(f"    Divergências:       {divergences.height:,}")
+    print(f"    Orfandade (Ext):    {missing_in_ext.height:,}")
+    print(f"    Orfandade (Int):    {missing_in_int.height:,}")
+    print("    " + "─" * 40)
+    print(f"    ⏱️  TEMPO TOTAL:   {total_time:.4f}s")
+    print(f"    🎯  SLA STATUS:    {((total_time/1200)*100):.4f}% do limite (20 min)")
+    print("    " + "─" * 40 + "\n")
 
 if __name__ == "__main__":
     run_reconciliation()

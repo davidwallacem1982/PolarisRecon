@@ -45,7 +45,7 @@ graph TD
 
 ```bash
 # Clone o projeto
-cd c:\Medal\conciliacao_mock
+cd conciliacao_mock
 
 # Instale as dependências de engenharia
 pip install -r requirements.txt

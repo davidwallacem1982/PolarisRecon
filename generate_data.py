@@ -4,13 +4,19 @@ import time
 import os
 
 def generate_mock_data(n_records=1000000):
-    print(f"Gerando {n_records} registros de mock...")
+    print("\n" + "╔" + "═" * 58 + "╗")
+    print("║" + " " * 16 + "POLARIS RECON - DATA GENERATOR" + " " * 12 + "║")
+    print("╚" + "═" * 58 + "╝")
+    print(f"[*] Preparando geração de {n_records:,} registros...")
+    
     start_time = time.time()
     
     # Gerar IDs únicos
+    print("[>] Calculando chaves primárias (order_ids)...")
     order_ids = np.arange(1, n_records + 1)
     
     # Dados base (Internos)
+    print("[>] Construindo DataFrame Interno (Base de Dados)...")
     internal_df = pl.DataFrame({
         "external_id": [f"EXT_{i}" for i in order_ids],
         "order_id": order_ids,
@@ -22,6 +28,7 @@ def generate_mock_data(n_records=1000000):
     })
     
     # Criar DataFrame Externo (Cópia do Interno com divergências)
+    print("[>] Injetando anomalias e divergências controladas...")
     external_df = internal_df.clone()
     
     # 1. Simular divergência de quantidade (em 10.000 registros)
@@ -37,6 +44,7 @@ def generate_mock_data(n_records=1000000):
     
     # 4. Simular registros extras no externo (Adicionar 500 novos)
     extra_ids = np.arange(n_records + 1, n_records + 501)
+    print("[>] Finalizando registros órfãos no arquivo externo...")
     extra_df = pl.DataFrame({
         "external_id": [f"EXT_{i}" for i in extra_ids],
         "order_id": extra_ids,
@@ -49,6 +57,7 @@ def generate_mock_data(n_records=1000000):
     external_df = pl.concat([external_df, extra_df])
     
     # Salvar em CSV
+    print("[>] Serializando dados para a pasta /data...")
     if not os.path.exists("data"):
         os.makedirs("data")
         
@@ -56,7 +65,10 @@ def generate_mock_data(n_records=1000000):
     internal_df.write_csv("data/internal_base.csv")
     
     end_time = time.time()
-    print(f"Arquivos gerados em {end_time - start_time:.2f} segundos.")
+    print("╚" + "═" * 58 + "╝")
+    print(f"✅ GERAÇÃO CONCLUÍDA EM {end_time - start_time:.2f} segundos.")
+    print(f"Local: c:\\Medal\\conciliacao_mock\\data")
+    print("=" * 60 + "\n")
 
 if __name__ == "__main__":
     generate_mock_data()
