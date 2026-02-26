@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+venv/
+.venv/
+
+# Data and Reports (Polaris Recon Specific)
+data/
+reports/
+*.csv
+*.png
+
+# IDEs
+.vscode/
+.idea/
