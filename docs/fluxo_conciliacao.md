@@ -4,7 +4,7 @@ Este artefato descreve o fluxo operacional e técnico para a conciliação diár
 
 ## Diagrama do Fluxo (Visualização Direta)
 
-![Fluxograma de Conciliação](img/fluxograma.png)
+![Fluxograma de Conciliação](../img/fluxograma.png)
 
 ## Diagrama do Fluxo (Mermaid Acadêmico)
 
@@ -58,3 +58,7 @@ graph TD
 
 > [!IMPORTANT]
 > O processamento deve ocorrer dentro de uma janela de 20 minutos para atender aos requisitos de negócio.
+
+---
+
+Este documento foi validado e assinado por David Wallace Marques Ferreira - Engenheiro Sênior

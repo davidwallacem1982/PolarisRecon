@@ -90,10 +90,19 @@ O sistema gera relatórios estruturados na pasta `/reports`:
 
 ---
 
-## 👨‍💻 Contribuição
+## 📂 Documentação do Projeto
 
-Desenvolvido com foco em **Visual Excellence** e **High Performance Computing**. Para alterações no motor principal, consulte o documento de [Especificação Técnica](implementation_plan.md).
+Para detalhes aprofundados sobre a lógica e o design do sistema, consulte:
+
+- [📄 Fluxo de Trabalho (Diagrama Detalhado)](docs/fluxo_conciliacao.md)
+- [📄 Especificação Técnica (Plano de Implementação)](docs/especificacao_tecnica.md)
 
 ---
 
-© 2026 Polaris Recon - Data Engineering Division
+## 👨‍💻 Contribuição
+
+Desenvolvido com foco em **Visual Excellence** e **High Performance Computing**. Para alterações no motor principal, consulte os documentos acima.
+
+---
+
+Este documento foi validado e assinado por David Wallace Marques Ferreira - Engenheiro Sênior

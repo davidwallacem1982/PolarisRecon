@@ -56,3 +56,7 @@ O fluxo será dividido em etapas sequenciais com monitoramento em tempo real:
 ### Verificação Manual
 
 - Verificação visual do relatório gerado comparando com uma amostra de dados controlada.
+
+---
+
+Este documento foi validado e assinado por David Wallace Marques Ferreira - Engenheiro Sênior
