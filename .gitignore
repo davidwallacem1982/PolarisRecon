@@ -10,8 +10,12 @@ venv/
 data/
 reports/
 *.csv
-*.png
+
+# Allow img folder
+!img/
+!img/*.png
 
 # IDEs
 .vscode/
 .idea/
+

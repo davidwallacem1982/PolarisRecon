@@ -4,7 +4,7 @@ Este artefato descreve o fluxo operacional e técnico para a conciliação diár
 
 ## Diagrama do Fluxo (Visualização Direta)
 
-![Fluxograma de Conciliação](file:///c:/Medal/conciliacao_mock/fluxograma.png)
+![Fluxograma de Conciliação](img/fluxograma.png)
 
 ## Diagrama do Fluxo (Mermaid Acadêmico)
 
