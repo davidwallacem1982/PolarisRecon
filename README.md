@@ -47,7 +47,7 @@ graph TD
 
 ```bash
 # Clone o projeto
-cd conciliacao_mock
+cd <nome-da-pasta-do-projeto>
 
 # Instale as dependências de engenharia
 pip install -r requirements.txt

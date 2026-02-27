@@ -79,7 +79,7 @@ def generate_mock_data(n_records=1000000):
     end_time = time.time()
     print("╚" + "═" * 58 + "╝")
     print(f"✅ GERAÇÃO CONCLUÍDA EM {end_time - start_time:.2f} segundos.")
-    print("Local: c:\\conciliacao_mock\\data")
+    print(f"Local: {os.path.abspath('data')}")
     print("=" * 60 + "\n")
 
 
