@@ -1,6 +1,8 @@
 # 💎 Polaris Recon: Conciliação de Renda Fixa (Elite Edition)
 
 ![Status](https://img.shields.io/badge/Status-Project_Ready-brightgreen)
+![CI/CD](https://github.com/davidwallacem1982/conciliacao/actions/workflows/main.yml/badge.svg)
+![Version](https://img.shields.io/github/v/tag/davidwallacem1982/conciliacao?label=version&color=orange)
 ![Performance](https://img.shields.io/badge/SLA-Sub_2_Seconds-blueviolet)
 ![Engine](https://img.shields.io/badge/Engine-Polars_Rust-orange)
 
@@ -45,7 +47,7 @@ graph TD
 
 ```bash
 # Clone o projeto
-cd conciliacao_mock
+cd <nome-da-pasta-do-projeto>
 
 # Instale as dependências de engenharia
 pip install -r requirements.txt
