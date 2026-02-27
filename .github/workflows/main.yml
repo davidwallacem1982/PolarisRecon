@@ -1,0 +1,75 @@
+name: Polaris Recon - Professional CI/CD Pipeline
+
+on:
+  push:
+    branches: [master, homologacao, developer]
+  pull_request:
+    branches: [master]
+
+jobs:
+  quality-and-security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Linting/Security Tools
+        run: |
+          pip install flake8 bandit
+
+      - name: Lint with flake8
+        run: |
+          # Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Security Scan with Bandit
+        run: |
+          bandit -r . -x ./.venv,./tests
+
+  integrity-tests:
+    needs: quality-and-security
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Unit Test & Stress Simulation (10k)
+        run: |
+          python -c "from generate_data import generate_mock_data; generate_mock_data(10000)"
+          python reconciliation_engine.py
+
+  versioning-and-tagging:
+    needs: integrity-tests
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
+
+      - name: Automatic Version Bump
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
+          RELEASE_BRANCHES: master

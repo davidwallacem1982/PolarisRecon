@@ -49,7 +49,13 @@ graph TD
   - `unit_price`: Validação de preço de execução.
   - `trading_account`: Validação se a conta de destino está correta.
 
-### 4. Resultados e Notificações
+### 4. Ciclo de Vida Automatizado (CI/CD)
+
+- **Validação de Código**: Cada alteração passa por Auditoria Automática (Linting e Segurança).
+- **Testes de Regressão**: O motor é testado contra regressões de performance em cada Push.
+- **Protocolo de Release**: Tags de versão são geradas apenas após aprovação total na branch `master`.
+
+### 5. Resultados e Notificações
 
 - **Sucesso**: Disponibilização do relatório em 20 minutos após o recebimento.
 - **Erro Crítico**: No caso de falha no servidor de processamento ou timeout do banco de dados, a área responsável é alertada imediatamente via sistemas de monitoramento (ex: E-mail, Slack, OpsGenie).

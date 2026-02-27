@@ -46,6 +46,14 @@ O fluxo será dividido em etapas sequenciais com monitoramento em tempo real:
 - `ValidationLayer`: Validação de esquema de arquivo.
 - `ReportingEngine`: Gerador de relatórios de divergência.
 
+## 4. Automação e CI/CD (GitHub Actions)
+
+Implementamos um pipeline de Integração Contínua para garantir a robustez do motor:
+
+- **Pipeline de Teste**: Executa automaticamente em cada `push` para validar a integridade do código.
+- **Versionamento Automático**: Gera tags de versão (ex: `v1.0.1`) automaticamente ao realizar merges na branch `master`.
+- **Garantia de SLA**: O pipeline testa o motor com volumes reduzidos em cada alteração para evitar regressões de performance.
+
 ## Plano de Verificação
 
 ### Testes Automatizados
